@@ -1,0 +1,70 @@
+formulas(sos).
+    %Effect Axioms
+    all x all y all loc1 all loc2 all s ((At(HOME,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2)) -> At(loc1,do(go(loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(HOME,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2)) -> -Has(x,do(go(loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(HOME,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2)) -> Sells(loc1,x,do(go(loc1),s))).
+
+    %Frame Axioms
+    all x all y all loc1 all loc2 all s ((At(HOME,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2)) -> -At(loc2,do(go(loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(HOME,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2)) -> -At(HOME,do(go(loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(HOME,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2)) -> -Has(y,do(go(loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(HOME,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2)) -> Sells(loc2,y,do(go(loc1),s))).
+
+    %Effect Axioms
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> At(loc1,do(buy(x,loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Has(x,do(buy(x,loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Sells(loc1,x,do(buy(x,loc1),s))).
+
+    %Frame Axioms
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> -At(loc2,do(buy(x,loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> -At(HOME,do(buy(x,loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> -Has(y,do(buy(x,loc1),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & -Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Sells(loc2,y,do(buy(x,loc1),s))).
+
+    %Effect Axioms
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> At(loc2,do(go(loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> -Has(y,do(go(loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Sells(loc2,y,do(go(loc2),s))).
+
+    %Frame Axioms
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> -At(loc1,do(go(loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> -At(HOME,do(go(loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Has(x,do(go(loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc1,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Sells(loc1,x,do(go(loc2),s))).
+
+    %Effect Axioms
+    all x all y all loc1 all loc2 all s ((At(loc2,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> At(loc2,do(buy(y,loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc2,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Has(y,do(buy(y,loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc2,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Sells(loc2,y,do(buy(y,loc2),s))).
+
+    %Frame Axioms
+    all x all y all loc1 all loc2 all s ((At(loc2,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> -At(loc1,do(buy(y,loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc2,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> -At(HOME,do(buy(y,loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc2,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Has(x,do(buy(y,loc2),s))).
+    all x all y all loc1 all loc2 all s ((At(loc2,s) & Has(x,s) & -Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Sells(loc1,x,do(buy(y,loc2),s))).
+
+    %Effect Axioms
+    all x all y all loc1 all loc2 all s (((At(loc1,s) | At(loc2,s)) & Has(x,s) & Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> At(HOME,do(go(HOME),s))).
+
+    %Frame Axioms
+    all x all y all loc1 all loc2 all s (((At(loc1,s) | At(loc2,s)) & Has(x,s) & Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Has(x,do(go(HOME),s))).
+    all x all y all loc1 all loc2 all s (((At(loc1,s) | At(loc2,s)) & Has(x,s) & Has(y,s) & Sells(loc1,x,s) & Sells(loc2,y,s) & (x != y) & (loc1 != loc2) & (loc1 != HOME) & (loc2 != HOME)) -> Has(y,do(go(HOME),s))).
+
+    %Initial:
+    At(HOME,S0).
+    -At(SHOP1,S0).
+    -At(SHOP2,S0).
+    Sells(SHOP1,COOKIES,S0).
+    Sells(SHOP2,DRILL,S0).
+    -Has(COOKIES,S0).
+    -Has(DRILL,S0).
+    HOME != SHOP1.
+    SHOP1 != SHOP2.
+    SHOP2 != HOME.
+    COOKIES != DRILL.
+
+    -Has(COOKIES,x) | -Has(DRILL,x) | -At(HOME,x) #answer(x).
+end_of_list.
+
+formulas(goals).
+end_of_list.

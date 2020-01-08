@@ -1,0 +1,69 @@
+
+[Project Management] In this semester, you are overwhelmed with group projects. 
+Currently, there are 4 projects under an imminent deadline: 
+
+{c, h, j, l}
+
+Fortunately, you have 7 friends in your group that are ready at your service: 
+
+{C, G, K, L, O, T, Y} 
+
+Your job is to assign a project to each of them without 
+anyone being free (except you). However, your friends are pretty strange and 
+they want the following constraints to be satisfied:
+
+G in {"l", "j"} #  G can only work on l and j project.
+L != K #  L and K do not get along at all.
+Y = L #  Y and L must work on the same project..
+Y = G #  Y and G must work on the same project.
+O = "c" #  O must work on c project.
+L != T #  L and T do not get along at all.
+K = O #  K and O must work on the same project..
+C != "l" #  C cannot work on l project.
+L = G #  L and G must work on the same project.
+T not in {"j", "h"} #  T cannot work on j or h project.
+O != T #  O and T do not get along at all.
+
+
+You will solve this by using backtracking search with MAC as the inference 
+and MRV for variable ordering. Please answer the following questions:
+
+1. How many possible complete states?
+
+	<2401>
+
+2. What is the depth level of the goal state (level 0 means empty assignment)?
+
+3. Before we begin running backtracking search, it is much more efficient to 
+   eliminate values that invalidate the unary contraints. Please list variables 
+   and possible values left after enforcing the unary constrains. Please order 
+   your variables and values alphabetically in the following format:
+
+    {
+        'VAR1': ['VAL1', 'VAL2'],
+        'VAR2': ['VAL2', 'VAL4'],
+        ...
+        'VAR7': ['VAL2']
+    }
+
+   Such that you can use eval() function to read your answer.
+
+4. Starting from the answer from question 3, please write the assignment 
+   you choose to make and the remaining values of all variable in the same 
+   format as in question 3. For example,
+
+    # ITERATION 1
+    {'VAR1': 'VAL2'}
+    {
+        'VAR1': ['VAL2'],
+        'VAR2': ['VAL4'],
+        ...
+        'VAR7': ['VAL2']
+    }
+    # ITERATION 2
+    ...
+
+
+NOTE: If there is a need to backtrack (MAC detects a failure), it is either 
+the question is incorrect or you are doing it wrong. Please consult me or 
+your classmates.

@@ -1,0 +1,170 @@
+============================== INPUT =================================
+assign(report_stderr,2).
+set(ignore_option_dependencies).
+if(Prover9).
+% Conditional input included.
+set(expand_relational_defs).
+set(prolog_style_variables).
+assign(max_seconds,60).
+end_if.
+if(Mace4).
+% Conditional input omitted.
+end_if.
+
+formulas(assumptions).
+(all x (Warm_Blooded(x) <-> Is(x,Mammal) | Is(x,Bird))).
+(all x (Cold_Blooded(x) <-> Is(x,Fish) | Is(x,Reptile))).
+(all x (Live_In(x,Sea) -> Is(x,Fish) | Is(x,Mammal))).
+(all x (Warm_Blooded(x) & -Cold_Blooded(x) | -Warm_Blooded(x) & Cold_Blooded(x))).
+(all x (Is(x,Dolphin) -> Warm_Blooded(x))).
+(all x (Is(x,Dolphin) -> Live_In(x,Sea))).
+(all x (Is(x,Flipper) -> Is(x,Dolphin))).
+end_of_list.
+
+formulas(goals).
+Is(Flipper,Mammal).
+end_of_list.
+
+============================== end of input ==========================
+
+% Enabling option dependencies (ignore applies only on input).
+
+============================== EXPAND RELATIONAL DEFINITIONS =========
+
+% No relational definitions were found.
+
+============================== end of expand relational definitions ==
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 (all x (Warm_Blooded(x) <-> Is(x,Mammal) | Is(x,Bird))) # label(non_clause).  [assumption].
+2 (all x (Cold_Blooded(x) <-> Is(x,Fish) | Is(x,Reptile))) # label(non_clause).  [assumption].
+3 (all x (Live_In(x,Sea) -> Is(x,Fish) | Is(x,Mammal))) # label(non_clause).  [assumption].
+4 (all x (Warm_Blooded(x) & -Cold_Blooded(x) | -Warm_Blooded(x) & Cold_Blooded(x))) # label(non_clause).  [assumption].
+5 (all x (Is(x,Dolphin) -> Warm_Blooded(x))) # label(non_clause).  [assumption].
+6 (all x (Is(x,Dolphin) -> Live_In(x,Sea))) # label(non_clause).  [assumption].
+7 (all x (Is(x,Flipper) -> Is(x,Dolphin))) # label(non_clause).  [assumption].
+8 Is(Flipper,Mammal) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+-Warm_Blooded(A) | Is(A,B) | Is(A,C).  [clausify(1)].
+Warm_Blooded(A) | -Is(A,B).  [clausify(1)].
+Warm_Blooded(A) | -Is(A,B).  [clausify(1)].
+-Cold_Blooded(A) | Is(A,B) | Is(A,C).  [clausify(2)].
+Cold_Blooded(A) | -Is(A,B).  [clausify(2)].
+Cold_Blooded(A) | -Is(A,B).  [clausify(2)].
+-Live_In(A,B) | Is(A,C) | Is(A,D).  [clausify(3)].
+Warm_Blooded(A) | Cold_Blooded(A).  [clausify(4)].
+-Cold_Blooded(A) | -Warm_Blooded(A).  [clausify(4)].
+-Is(A,B) | Warm_Blooded(A).  [clausify(5)].
+-Is(A,B) | Live_In(A,C).  [clausify(6)].
+-Is(A,B) | Is(A,C).  [clausify(7)].
+-Is(c1,c2).  [deny(8)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+Eliminating Warm_Blooded/1
+9 Warm_Blooded(A) | -Is(A,B).  [clausify(1)].
+10 -Warm_Blooded(A) | Is(A,B) | Is(A,C).  [clausify(1)].
+11 Warm_Blooded(A) | -Is(A,B).  [clausify(1)].
+12 Warm_Blooded(A) | Cold_Blooded(A).  [clausify(4)].
+Derived: Cold_Blooded(A) | Is(A,B) | Is(A,C).  [resolve(12,a,10,a)].
+13 -Cold_Blooded(A) | -Warm_Blooded(A).  [clausify(4)].
+Derived: -Cold_Blooded(A) | -Is(A,B).  [resolve(13,b,9,a)].
+14 -Is(A,B) | Warm_Blooded(A).  [clausify(5)].
+
+Eliminating Cold_Blooded/1
+15 Cold_Blooded(A) | -Is(A,B).  [clausify(2)].
+16 -Cold_Blooded(A) | Is(A,B) | Is(A,C).  [clausify(2)].
+17 Cold_Blooded(A) | -Is(A,B).  [clausify(2)].
+18 Cold_Blooded(A) | Is(A,B) | Is(A,C).  [resolve(12,a,10,a)].
+Derived: Is(A,B) | Is(A,C) | Is(A,D) | Is(A,E).  [resolve(18,a,16,a)].
+19 -Cold_Blooded(A) | -Is(A,B).  [resolve(13,b,9,a)].
+Derived: -Is(A,B) | -Is(A,C).  [resolve(19,a,15,a)].
+
+Eliminating Live_In/2
+20 -Is(A,B) | Live_In(A,C).  [clausify(6)].
+21 -Live_In(A,B) | Is(A,C) | Is(A,D).  [clausify(3)].
+
+============================== end predicate elimination =============
+
+Auto_denials:  (non-Horn, no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ Is ]).
+Function symbol precedence:  function_order([ c1, c2 ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(binary_resolution).  % (non-Horn)
+  % set(neg_ur_resolution).  % (non-Horn, less than 100 clauses)
+
+Auto_process settings:
+  % set(factor).  % (non-Horn)
+  % set(unit_deletion).  % (non-Horn)
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.05) seconds.
+% Length of proof is 16.
+% Level of proof is 5.
+% Maximum clause weight is 12.
+% Given clauses 0.
+
+1 (all x (Warm_Blooded(x) <-> Is(x,Mammal) | Is(x,Bird))) # label(non_clause).  [assumption].
+2 (all x (Cold_Blooded(x) <-> Is(x,Fish) | Is(x,Reptile))) # label(non_clause).  [assumption].
+4 (all x (Warm_Blooded(x) & -Cold_Blooded(x) | -Warm_Blooded(x) & Cold_Blooded(x))) # label(non_clause).  [assumption].
+9 Warm_Blooded(A) | -Is(A,B).  [clausify(1)].
+10 -Warm_Blooded(A) | Is(A,B) | Is(A,C).  [clausify(1)].
+12 Warm_Blooded(A) | Cold_Blooded(A).  [clausify(4)].
+13 -Cold_Blooded(A) | -Warm_Blooded(A).  [clausify(4)].
+15 Cold_Blooded(A) | -Is(A,B).  [clausify(2)].
+16 -Cold_Blooded(A) | Is(A,B) | Is(A,C).  [clausify(2)].
+18 Cold_Blooded(A) | Is(A,B) | Is(A,C).  [resolve(12,a,10,a)].
+19 -Cold_Blooded(A) | -Is(A,B).  [resolve(13,b,9,a)].
+24 Is(A,B) | Is(A,C) | Is(A,D) | Is(A,E).  [resolve(18,a,16,a)].
+25 -Is(A,B) | -Is(A,C).  [resolve(19,a,15,a)].
+26 Is(A,B) | Is(A,C) | Is(A,D).  [factor(24,a,b)].
+27 -Is(A,B).  [factor(25,a,b)].
+28 $F.  [factor(26,a,b),unit_del(a,27),unit_del(b,27)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=0. Generated=12. Kept=6. proofs=1.
+Usable=0. Sos=4. Demods=0. Limbo=2, Disabled=17. Hints=0.
+Weight_deleted=0. Literals_deleted=0.
+Forward_subsumed=5. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=5. Nonunit_bsub_feature_tests=3.
+Megabytes=0.03.
+User_CPU=0.01, System_CPU=0.05, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 7612 exit (max_proofs) Thu Nov 14 10:18:54 2019

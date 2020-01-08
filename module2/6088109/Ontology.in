@@ -1,0 +1,46 @@
+assign(report_stderr, 2).
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  set(expand_relational_defs).
+  set(prolog_style_variables).
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  set(prolog_style_variables).
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+all x ((Is(x, Passenger_Vehicle) | Is(x, Motorized_Vehicle) | Is(x, Non_Motorized_Vehicle)) <-> Is(x, Vehicle)).
+
+all x ((Is(x, Car) | Is(x, Motorcycle)) <-> Is(x, Passenger_Vehicle)).
+all x ((Is(x, Car) | Is(x, Motorcycle)) <-> Is(x, Motorized_Vehicle)).
+all x (Is(x, Bicycle) -> Is(x, Non_Motorized_Vehicle)).
+
+all x (Is(x, Passenger_Vehicle) <-> Has(x, Seats)).
+all x (Is(x, Motorized_Vehicle) <-> (Has(x, Motor) | Uses(x, Fuel))).
+
+all x (Is(x, Jazz) <-> Is(x, Car)).
+all x ((Is(x, Petrol) | Is(x, LPG)) <-> Is(x, Fuel)).
+all x (Is(x, Mountain_Bike) <-> Is(x, Bicycle)).
+all x (Is(x, Man) <-> Is(x, Person)).
+
+Is(Car1, Jazz).
+Is(Bill, Man).
+Is(Bike1, Mountain_Bike).
+Uses(Car1,Fuel).
+
+Owns(Bill, Car1).
+Owns(Bill, Bike1).
+
+end_of_list.
+
+formulas(goals).
+
+Uses(Car1,Fuel).
+
+end_of_list.
+

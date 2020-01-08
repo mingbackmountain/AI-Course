@@ -1,0 +1,32 @@
+assign(report_stderr, 2).
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  set(expand_relational_defs).
+  set(prolog_style_variables).
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  set(prolog_style_variables).
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+all x (Warm_Blooded(x) <-> (Is(x, Mammal) | Is(x, Bird))). % a
+all x (Cold_Blooded(x) <-> (Is(x, Fish) | Is(x, Reptile))). % b
+all x (Live_In(x, Sea) -> (Is(x, Fish) | Is(x, Mammal))). % c
+all x ((Warm_Blooded(x) & -Cold_Blooded(x)) | (-Warm_Blooded(x) & Cold_Blooded(x))). % d
+all x (Is(x, Dolphin) -> Warm_Blooded(x)). % e
+all x (Is(x, Dolphin) -> Live_In(x, Sea)). % f 
+all x (Is(x, Flipper) -> Is(x, Dolphin)). % g
+
+end_of_list.
+
+formulas(goals).
+
+Is(Flipper,Mammal).
+
+end_of_list.
+

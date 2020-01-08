@@ -1,0 +1,178 @@
+============================== INPUT =================================
+assign(report_stderr,2).
+set(ignore_option_dependencies).
+if(Prover9).
+% Conditional input included.
+set(expand_relational_defs).
+set(prolog_style_variables).
+assign(max_seconds,60).
+end_if.
+if(Mace4).
+% Conditional input omitted.
+end_if.
+
+formulas(assumptions).
+(all x (Is(x,Passenger_Vehicle) | Is(x,Motorized_Vehicle) | Is(x,Non_Motorized_Vehicle) <-> Is(x,Vehicle))).
+(all x (Is(x,Car) | Is(x,Motorcycle) <-> Is(x,Passenger_Vehicle))).
+(all x (Is(x,Car) | Is(x,Motorcycle) <-> Is(x,Motorized_Vehicle))).
+(all x (Is(x,Bicycle) -> Is(x,Non_Motorized_Vehicle))).
+(all x (Is(x,Passenger_Vehicle) <-> Has(x,Seats))).
+(all x (Is(x,Motorized_Vehicle) <-> Has(x,Motor) | Uses(x,Fuel))).
+(all x (Is(x,Jazz) <-> Is(x,Car))).
+(all x (Is(x,Petrol) | Is(x,LPG) <-> Is(x,Fuel))).
+(all x (Is(x,Mountain_Bike) <-> Is(x,Bicycle))).
+(all x (Is(x,Man) <-> Is(x,Person))).
+Is(Car1,Jazz).
+Is(Bill,Man).
+Is(Bike1,Mountain_Bike).
+Owns(Bill,Car1).
+Owns(Bill,Bike1).
+end_of_list.
+
+formulas(goals).
+Owns(Bill,seats).
+end_of_list.
+
+============================== end of input ==========================
+
+% Enabling option dependencies (ignore applies only on input).
+
+============================== EXPAND RELATIONAL DEFINITIONS =========
+
+% No relational definitions were found.
+
+============================== end of expand relational definitions ==
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 (all x (Is(x,Passenger_Vehicle) | Is(x,Motorized_Vehicle) | Is(x,Non_Motorized_Vehicle) <-> Is(x,Vehicle))) # label(non_clause).  [assumption].
+2 (all x (Is(x,Car) | Is(x,Motorcycle) <-> Is(x,Passenger_Vehicle))) # label(non_clause).  [assumption].
+3 (all x (Is(x,Car) | Is(x,Motorcycle) <-> Is(x,Motorized_Vehicle))) # label(non_clause).  [assumption].
+4 (all x (Is(x,Bicycle) -> Is(x,Non_Motorized_Vehicle))) # label(non_clause).  [assumption].
+5 (all x (Is(x,Passenger_Vehicle) <-> Has(x,Seats))) # label(non_clause).  [assumption].
+6 (all x (Is(x,Motorized_Vehicle) <-> Has(x,Motor) | Uses(x,Fuel))) # label(non_clause).  [assumption].
+7 (all x (Is(x,Jazz) <-> Is(x,Car))) # label(non_clause).  [assumption].
+8 (all x (Is(x,Petrol) | Is(x,LPG) <-> Is(x,Fuel))) # label(non_clause).  [assumption].
+9 (all x (Is(x,Mountain_Bike) <-> Is(x,Bicycle))) # label(non_clause).  [assumption].
+10 (all x (Is(x,Man) <-> Is(x,Person))) # label(non_clause).  [assumption].
+11 Owns(Bill,seats) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+-Is(A,B) | Is(A,C).  [clausify(1)].
+-Is(A,B) | Is(A,C).  [clausify(1)].
+-Is(A,B) | Is(A,C).  [clausify(1)].
+Is(A,B) | Is(A,C) | Is(A,D) | -Is(A,E).  [clausify(1)].
+-Is(A,B) | Is(A,C).  [clausify(2)].
+-Is(A,B) | Is(A,C).  [clausify(2)].
+Is(A,B) | Is(A,C) | -Is(A,D).  [clausify(2)].
+-Is(A,B) | Is(A,C).  [clausify(3)].
+-Is(A,B) | Is(A,C).  [clausify(3)].
+Is(A,B) | Is(A,C) | -Is(A,D).  [clausify(3)].
+-Is(A,B) | Is(A,C).  [clausify(4)].
+-Is(A,B) | Has(A,C).  [clausify(5)].
+Is(A,B) | -Has(A,C).  [clausify(5)].
+-Is(A,B) | Has(A,C) | Uses(A,D).  [clausify(6)].
+Is(A,B) | -Has(A,C).  [clausify(6)].
+Is(A,B) | -Uses(A,C).  [clausify(6)].
+-Is(A,B) | Is(A,C).  [clausify(7)].
+Is(A,B) | -Is(A,C).  [clausify(7)].
+-Is(A,B) | Is(A,C).  [clausify(8)].
+-Is(A,B) | Is(A,C).  [clausify(8)].
+Is(A,B) | Is(A,C) | -Is(A,D).  [clausify(8)].
+-Is(A,B) | Is(A,C).  [clausify(9)].
+Is(A,B) | -Is(A,C).  [clausify(9)].
+-Is(A,B) | Is(A,C).  [clausify(10)].
+Is(A,B) | -Is(A,C).  [clausify(10)].
+Is(A,B).  [assumption].
+Is(A,B).  [assumption].
+Is(A,B).  [assumption].
+Owns(A,B).  [assumption].
+Owns(A,B).  [assumption].
+-Owns(c1,seats).  [deny(11)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+Eliminating Has/2
+12 Is(A,B) | -Has(A,C).  [clausify(5)].
+13 -Is(A,B) | Has(A,C).  [clausify(5)].
+14 -Is(A,B) | Has(A,C) | Uses(A,D).  [clausify(6)].
+15 Is(A,B) | -Has(A,C).  [clausify(6)].
+
+Eliminating Uses/2
+
+Eliminating Owns/2
+16 -Owns(c1,seats).  [deny(11)].
+17 Owns(A,B).  [assumption].
+18 Owns(A,B).  [assumption].
+Derived: $F.  [resolve(16,a,17,a)].
+
+============================== end predicate elimination =============
+
+Auto_denials:  (non-Horn, no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ Is ]).
+Function symbol precedence:  function_order([ ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(binary_resolution).  % (non-Horn)
+  % set(neg_ur_resolution).  % (non-Horn, less than 100 clauses)
+
+Auto_process settings:
+  % set(factor).  % (non-Horn)
+  % set(unit_deletion).  % (non-Horn)
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.03) seconds.
+% Length of proof is 4.
+% Level of proof is 2.
+% Maximum clause weight is 0.
+% Given clauses 0.
+
+11 Owns(Bill,seats) # label(non_clause) # label(goal).  [goal].
+16 -Owns(c1,seats).  [deny(11)].
+17 Owns(A,B).  [assumption].
+21 $F.  [resolve(16,a,17,a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=0. Generated=24. Kept=2. proofs=1.
+Usable=0. Sos=0. Demods=0. Limbo=2, Disabled=32. Hints=0.
+Weight_deleted=0. Literals_deleted=0.
+Forward_subsumed=21. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=19. Nonunit_bsub_feature_tests=0.
+Megabytes=0.03.
+User_CPU=0.01, System_CPU=0.03, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 20120 exit (max_proofs) Thu Nov 14 02:23:15 2019
